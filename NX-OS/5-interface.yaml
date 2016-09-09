@@ -1,0 +1,22 @@
+---
+
+- name: Configuring an interface
+  hosts: n9k1-fabri
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+
+  - name: Configure Interface Eth1/1
+    nxos_interface:
+      interface: Ethernet1/1
+      description: "configured by Ansible"
+      admin_state: up
+
+      host: "{{ inventory_hostname }}"
+      username: "{{username}}"
+      transport: "{{transport}}"
+

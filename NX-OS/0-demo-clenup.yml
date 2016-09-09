@@ -1,0 +1,101 @@
+---
+#
+# This playbook cleanup all the changes made by all the NX-OS playbooks
+# NOTE: hosts is set to a single device as in all playbooks but the template
+#
+- name: cleanup all the configuration
+  hosts: n9k1-fabri
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  vars:
+    enabled_features:
+      - lacp
+      - ospf
+      - vpc
+      - bgp
+      - nxapi
+      - pim
+      - interface-vlan
+
+  tasks:
+    - name: 1-VLAN Cleanup - add VLAN 60
+      nxos_vlan:
+        vlan_id: 60
+        name: old
+        state: present
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{ transport }}"
+
+
+    - name: 1-VLAN Cleanup - remove all vlans
+      nxos_vlan:
+        vlan_id: "{{ item.vlan_id }}"
+        name: "{{ item.name | default(omit) }}"
+        state: absent
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{ transport }}"
+      with_items:
+        - vlan_id: 10
+        - vlan_id: 20
+        - vlan_id: 30
+        - vlan_id: 40
+        - vlan_id: 50
+        - vlan_id: 99
+        - vlan_id: 100
+
+    - name: 2-Configuration cleanup
+      nxos_config:
+        lines:
+          - hostname switch
+          - no ntp server 171.68.38.65 use-vrf management
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{transport}}"
+
+    - name: 3-Features cleanup
+      nxos_feature:
+        feature: "{{ item }}"
+        state: disabled
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{transport}}"
+      with_items: "{{ enabled_features }}"
+
+    - name: 4-ACL cleanup
+      nxos_config:
+        lines:
+          - no ip access-list test
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{transport}}"
+
+    - name: 5-Interface Eth1/1 cleanup
+      nxos_interface:
+        interface: Ethernet1/1
+        description: "we are almost done...."
+        admin_state: down
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{transport}}"
+
+#
+# This playbook removes all configuration files create by the template
+# NOTE: hosts is set to "all" in order to remove the config from all devices
+#
+- name: Remove all configuration files create by the template
+  hosts: all
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - file: path=configs/{{ inventory_hostname }}.cfg state=absent
+

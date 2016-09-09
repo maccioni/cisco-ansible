@@ -1,0 +1,14 @@
+---
+- name: test Jinjia templates
+  hosts: all
+  connection: local
+  gather_facts: no
+
+  vars:
+    if_list:
+    - Eth1/1
+    - Eth1/2
+
+  tasks:
+
+    - template: src=templates/nexus.j2 dest=configs/{{ inventory_hostname }}.cfg

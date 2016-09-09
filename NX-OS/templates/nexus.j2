@@ -1,0 +1,29 @@
+#
+# Configure hostname
+#
+hostname {{ inventory_hostname }}
+
+#
+# Configure management interface
+#
+interface mgnt0
+  ip address {{ mngt_ip }}/24
+  vrf context management
+
+#
+# Configure a list of interface description and no shut state
+#
+{% for intf in if_list %}
+
+interface {{ intf }}
+  description {{ intf }} configured by Ansible
+  no shut
+
+{% endfor %}
+
+#
+# Configure list of VLANS
+#
+{% for vlan in range(100,110) %}
+  vlan {{ vlan }}
+{% endfor %}

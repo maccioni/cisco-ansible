@@ -1,0 +1,28 @@
+---
+- name: configure nxos features
+  hosts: n9k1-fabri
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  vars:
+    enabled_features:
+      - lacp
+      - ospf
+      - vpc
+      - bgp
+      - nxapi
+      - pim
+      - interface-vlan
+
+  tasks:
+    - name: enable nxos features
+      nxos_feature:
+        feature: "{{ item }}"
+        state: enabled
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{transport}}"
+      with_items: "{{ enabled_features }}"

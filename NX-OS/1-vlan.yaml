@@ -1,0 +1,46 @@
+---
+- name: test configuring vlans
+  hosts: n9k1-fabri
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: ensure vlan 50 exists with the name web and is shutdown
+      nxos_vlan:
+        vlan_id: 50
+        name: WEB
+        admin_state: down
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{ transport }}"
+
+    - name: ensure vlan is not on the device
+      nxos_vlan:
+        vlan_id: 60
+        state: absent
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{ transport }}"
+
+    - name: ensure a group of vlans are present with the given names
+      nxos_vlan:
+        vlan_id: "{{ item.vlan_id }}"
+        name: "{{ item.name | default(omit) }}"
+        state: present
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{ transport }}"
+      with_items:
+        - vlan_id: 10
+          name: web
+        - vlan_id: 20
+          name: app
+        - vlan_id: 30
+          name: db
+        - vlan_id: 40
+          name: misc
+        - vlan_id: 99
+          name: native_vlan

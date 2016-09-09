@@ -1,0 +1,19 @@
+---
+
+- name: test some configurations using nxos_config module
+  hosts: n9k1-fabri
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: Configure basic configuration commands
+      nxos_config:
+        lines:
+          - hostname CiscoLiveRocks
+          - ntp server 171.68.38.65 use-vrf management
+        host: "{{ inventory_hostname }}"
+        username: "{{username}}"
+        transport: "{{transport}}"
