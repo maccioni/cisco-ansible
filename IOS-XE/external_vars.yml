@@ -1,0 +1,5 @@
+---
+username: cisco
+password: cisco
+auth_pass: cisco
+transport: cli

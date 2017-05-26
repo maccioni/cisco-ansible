@@ -1,0 +1,29 @@
+#   - Comments begin with the '#' character
+#   - Blank lines are ignored
+#   - Groups of hosts are delimited by [header] elements
+#   - You can enter hostnames or ip addresses
+#   - A hostname/ip can be a member of multiple groups
+
+[all:vars]
+ansible_python_interpreter=python
+
+[ios-xe]
+172.26.249.151
+cat3k-fabri-160.cisco.com
+cat3k-fabri-161.cisco.com
+172.26.249.165
+172.26.249.167
+172.26.249.169
+
+[ios-xe-3x]
+172.26.249.162
+
+[nxos]
+n9k1-fabri
+n9k2-fabri
+
+
+[servers]
+172.26.249.191
+172.26.249.192
+172.26.249.193
