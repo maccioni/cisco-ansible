@@ -1,0 +1,30 @@
+---
+
+- name: test Ansible ios_banner module on Cisco IOS XE
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: configure login banner
+      ios_banner:
+        banner: login
+        text: |
+          ***************************************************************************
+
+                 ||        ||
+                 ||        ||             Cisco Systems, Inc.
+                ||||      ||||            TME Lab
+            ..:||||||:..:||||||:..        SJ15/1/157
+
+                                      NOTICE TO USERS
+
+          UNAUTHORIZED ACCESS TO THIS NETWORK DEVICE IS PROHIBITED.
+          You must have explicit permission to access or configure this
+          device.  All activities performed on this device are logged and
+          violations of this policy may result in disciplinary action.
+
+          ***************************************************************************

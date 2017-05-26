@@ -1,0 +1,26 @@
+---
+
+- name: test Ansible ios_system module on Cisco IOS XE
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: configure hostname and domain name
+      ios_system:
+        hostname: cat3k-{{ inventory_hostname }}
+        domain_name: cisco.com
+        domain_search:
+          - cisco.com
+
+    - name: configure DNS lookup sources
+      ios_system:
+        lookup_source: GigabitEthernet0/0
+        lookup_enabled: yes
+    
+    - name: configure name servers
+      ios_system:
+        name_servers:
+          - 171.70.168.183
+          - 8.8.8.8
+          - 8.8.4.4

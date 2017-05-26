@@ -9,11 +9,13 @@ ansible_python_interpreter=python
 
 [ios-xe]
 172.26.249.151
-cat3k-fabri-160.cisco.com
-cat3k-fabri-161.cisco.com
+172.26.249.160
+#172.26.249.161
 172.26.249.165
-172.26.249.167
-172.26.249.169
+#172.26.249.167
+#172.26.249.169
+#cat3k-fabri-160.cisco.com
+#cat3k-fabri-161.cisco.com
 
 [ios-xe-3x]
 172.26.249.162

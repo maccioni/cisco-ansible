@@ -1,0 +1,20 @@
+---
+# ios_fact module Collects a base set of device facts from a remote device running IOS
+# NOTE: Possible values for gather_subset argument include all, hardware, config, and interfaces
+#
+# run the playbook with the -v option to see the collected facts:
+#   ansible-playbook -v ios_facts.yaml
+
+- name: test Ansible ios_facts module on Cisco IOS XE
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: collect hardware facts
+      ios_facts:
+        gather_subset: hardware
+
+    - name: collect interfaces facts
+      ios_facts:
+        gather_subset: interfaces

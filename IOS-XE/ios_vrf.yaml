@@ -1,0 +1,16 @@
+---
+
+- name: test Ansible with IOS XE vrfs
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: configure a given list of vfrs and purge all the others
+      ios_vrf:
+        vrfs:
+            - Mgmt-vrf
+            - red
+            - blue
+            - yellow
+        purge: yes

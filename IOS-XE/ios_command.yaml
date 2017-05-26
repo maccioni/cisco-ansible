@@ -1,0 +1,19 @@
+---
+
+# run the playbook with the -v option to see the collected facts:
+#    ansible-playbook -v ios_command.yaml -u cisco -k
+
+- name: test Ansible ios_command on Cisco IOS XE 
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: show module and ip interfaces brief
+      ios_command:
+        commands:
+            - show module
+            - show ip interface brief

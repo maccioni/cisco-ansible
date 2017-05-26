@@ -1,0 +1,15 @@
+---
+
+- name: test Ansible Jinjia2 templates on Cisco IOS XE
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  vars:
+    if_list:
+    - GigabitEthernet1/0/1
+    - GigabitEthernet1/0/2
+    - GigabitEthernet1/0/3
+
+  tasks:
+      - template: src=templates/ios-xe.j2 dest=configs/{{ inventory_hostname }}.cfg

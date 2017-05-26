@@ -1,0 +1,34 @@
+---
+
+- name: test Ansible ios_config module on Cisco IOS XE
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: configure interface description
+      ios_config:
+        lines:
+          - description configured by Ansible
+        parents: interface GigabitEthernet1/0/3
+
+    - name: Configure ntp
+      ios_config:
+        lines:
+          - ntp server 171.68.38.65
+          - ntp server 1.2.3.4
+
+    - name: Configure acl
+      ios_config:
+        lines:
+            - 10 permit ip host 1.1.1.1 any log
+            - 20 permit ip host 2.2.2.2 any log
+            - 30 permit ip host 3.3.3.3 any log
+            - 40 permit ip host 4.4.4.4 any log
+            - 50 permit ip host 5.5.5.5 any log
+        parents: ip access-list extended AnsibleTest
+        before: no ip access-list extended AnsibleTest
+        match: exact
