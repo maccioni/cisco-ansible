@@ -7,11 +7,19 @@
 [all:vars]
 ansible_python_interpreter=python
 
+[iosxe]
+cat9k-151 ansible_host=172.26.249.151
+
+[iosxe:vars]
+ansible_network_os=default
+ansible_connection=netconf
+
 [ios-xe]
 172.26.249.151
-172.26.249.160
+#172.26.249.160
 #172.26.249.161
-172.26.249.165
+172.26.249.162
+#172.26.249.165
 #172.26.249.167
 #172.26.249.169
 #cat3k-fabri-160.cisco.com
@@ -24,6 +32,9 @@ ansible_python_interpreter=python
 n9k1-fabri
 n9k2-fabri
 
+[switches:children]
+ios-xe
+nxos
 
 [servers]
 172.26.249.191
