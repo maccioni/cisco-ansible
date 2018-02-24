@@ -1,0 +1,8 @@
+    <config>
+      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
+        <interface>
+          <name>GigabitEthernet0/0</name>
+          <description>Managed by Ansible</description>
+        </interface>
+      </interfaces>
+    </config>

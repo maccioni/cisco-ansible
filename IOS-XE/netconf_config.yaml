@@ -1,0 +1,84 @@
+---
+
+##
+##  ----------------------------------------------------------------
+## Copyright 2017 Cisco Systems
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##    http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+## ------------------------------------------------------------------
+##
+## Author:  Fabrizio Maccioni, fabrimac@cisco.com
+##
+## This software is for demonstration purposes only and is not supported
+## by Cisco systems.
+##
+
+- name: test Ansible netconf_config module on Cisco IOS XE 
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: change device hostname using a NETCONF operation based on a config.xml file
+      netconf_config:
+        host: "{{inventory_hostname}}"
+        hostkey_verify: false      
+        username: admin
+        password: cisco123      
+        xml: "{{ lookup('file', './config.xml') }}"          
+
+    - name: add a standard access list using a NETCONF operation using an rpc embedded in the playbook
+      netconf_config:
+        host: "{{inventory_hostname}}"
+        hostkey_verify: false      
+        username: admin      
+        password: cisco123      
+        xml: |          
+          <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native" xmlns:ios-acl="http://cisco.com/ns/yang/Cisco-IOS-XE-acl">
+              <ip>
+                <access-list>
+                  <ios-acl:standard>
+                    <ios-acl:name>MANAGEMENT</ios-acl:name>
+                    <ios-acl:access-list-seq-rule>
+                      <ios-acl:sequence>10</ios-acl:sequence>
+                      <ios-acl:permit>
+                        <ios-acl:std-ace>
+                          <ios-acl:ipv4-prefix>10.4.95.0</ios-acl:ipv4-prefix>
+                          <ios-acl:mask>0.0.0.127</ios-acl:mask>
+                        </ios-acl:std-ace>
+                      </ios-acl:permit>
+                    </ios-acl:access-list-seq-rule>
+                    <ios-acl:access-list-seq-rule>
+                      <ios-acl:sequence>20</ios-acl:sequence>
+                      <ios-acl:permit>
+                        <ios-acl:std-ace>
+                          <ios-acl:ipv4-prefix>100.0.0.0</ios-acl:ipv4-prefix>
+                          <ios-acl:mask>0.255.255.255</ios-acl:mask>
+                        </ios-acl:std-ace>
+                      </ios-acl:permit>
+                    </ios-acl:access-list-seq-rule>
+                    <ios-acl:access-list-seq-rule>
+                      <ios-acl:sequence>30</ios-acl:sequence>
+                      <ios-acl:permit>
+                        <ios-acl:std-ace>
+                          <ios-acl:ipv4-prefix>172.26.0.0</ios-acl:ipv4-prefix>
+                          <ios-acl:mask>0.0.255.255</ios-acl:mask>
+                        </ios-acl:std-ace>
+                      </ios-acl:permit>
+                    </ios-acl:access-list-seq-rule>
+                  </ios-acl:standard>
+                </access-list>
+              </ip>
+            </native>
+          </config>
