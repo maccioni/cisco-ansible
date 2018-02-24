@@ -1,0 +1,27 @@
+---
+
+- name: configure vrfs
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: configure the management vrf
+      ios_vrf:
+        vrfs:
+            - red
+            - blue
+            - yellow
+        state: present
+
+- name: configure interface G1/0/2
+  hosts: ios-xe
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: configure an access IP interface
+      ios_interface:
+        name: GigabitEthernet1/0/2
+        description: web access services
+        enabled: False
