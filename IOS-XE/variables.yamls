@@ -1,0 +1,20 @@
+---
+
+- name: test Ansible variables
+
+  vars_files:
+    - external_vars.yml
+
+  tasks:
+    - name: loop over a list
+      with_items: "{{ int_list }}"
+      ios_command:
+          commands:
+            - show run interface {{ item }}
+      register: output
+
+- name: print debug
+
+  tasks:
+    - name: save output to ansible.log file
+      debug: msg="{{ output }}"
