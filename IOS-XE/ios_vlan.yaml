@@ -23,7 +23,7 @@
 ## by Cisco systems.
 ##
 
-- name: test Ansible with IOS XE vrfs
+- name: test Ansible ios_vlan module with IOS XE 
   hosts: ios-xe
   connection: local
   gather_facts: no
