@@ -1,8 +1,38 @@
-    <config>
-      <interfaces xmlns="urn:ietf:params:xml:ns:yang:ietf-interfaces">
-        <interface>
-          <name>GigabitEthernet0/0</name>
-          <description>Managed by Ansible</description>
-        </interface>
-      </interfaces>
-    </config>
+          <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native" xmlns:ios-acl="http://cisco.com/ns/yang/Cisco-IOS-XE-acl">
+              <ip>
+                <access-list>
+                  <ios-acl:standard>
+                    <ios-acl:name>MANAGEMENT</ios-acl:name>
+                    <ios-acl:access-list-seq-rule>
+                      <ios-acl:sequence>10</ios-acl:sequence>
+                      <ios-acl:permit>
+                        <ios-acl:std-ace>
+                          <ios-acl:ipv4-prefix>10.4.95.0</ios-acl:ipv4-prefix>
+                          <ios-acl:mask>0.0.0.127</ios-acl:mask>
+                        </ios-acl:std-ace>
+                      </ios-acl:permit>
+                    </ios-acl:access-list-seq-rule>
+                    <ios-acl:access-list-seq-rule>
+                      <ios-acl:sequence>20</ios-acl:sequence>
+                      <ios-acl:permit>
+                        <ios-acl:std-ace>
+                          <ios-acl:ipv4-prefix>100.0.0.0</ios-acl:ipv4-prefix>
+                          <ios-acl:mask>0.255.255.255</ios-acl:mask>
+                        </ios-acl:std-ace>
+                      </ios-acl:permit>
+                    </ios-acl:access-list-seq-rule>
+                    <ios-acl:access-list-seq-rule>
+                      <ios-acl:sequence>30</ios-acl:sequence>
+                      <ios-acl:permit>
+                        <ios-acl:std-ace>
+                          <ios-acl:ipv4-prefix>172.26.0.0</ios-acl:ipv4-prefix>
+                          <ios-acl:mask>0.0.255.255</ios-acl:mask>
+                        </ios-acl:std-ace>
+                      </ios-acl:permit>
+                    </ios-acl:access-list-seq-rule>
+                  </ios-acl:standard>
+                </access-list>
+              </ip>
+            </native>
+          </config>

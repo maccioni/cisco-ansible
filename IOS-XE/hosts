@@ -16,6 +16,7 @@ ansible_connection=netconf
 
 [ios-xe]
 172.26.249.151
+172.26.249.152 ansible_connection=netconf ansible_network_os=default
 #172.26.249.160
 #172.26.249.161
 172.26.249.162
