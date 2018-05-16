@@ -2,7 +2,6 @@
 
 - name: configure vrfs
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   tasks:
@@ -16,7 +15,6 @@
 
 - name: configure interface G1/0/2
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   tasks:

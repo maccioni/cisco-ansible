@@ -25,7 +25,6 @@
 
 - name: test Ansible ios_vlan module with IOS XE 
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   tasks:
@@ -36,11 +35,11 @@
         state: present
 
     - name: Add interfaces to VLAN
+      with_items: "{{ int_list }}"
       ios_vlan:
         vlan_id: 100
         interfaces:
-          - GigabitEthernet1/0/2
-          - GigabitEthernet1/0/3
+           - "{{ item }}"
 
     - name: Delete vlan
       ios_vlan:

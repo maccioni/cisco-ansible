@@ -25,18 +25,19 @@
 
 - name: test Ansible ios_config module on Cisco IOS XE
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   vars_files:
     - external_vars.yml
 
   tasks:
-    - name: configure interface description
-      ios_config:
-        lines:
-          - description configured by Ansible
-        parents: interface GigabitEthernet1/0/3
+      #    - name: configure interface description
+  #      ios_config:
+  #      lines:
+  #        - interface {{ desc_int }}
+  #        - description configured by Ansible
+        # desc_int defined in group_vars
+        #parents: interface "{{ desc_int }}"
 
     - name: Configure ntp
       ios_config:

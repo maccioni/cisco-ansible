@@ -24,7 +24,6 @@
 ##
 - name: test Ansible ios_system module on Cisco IOS XE
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   tasks:

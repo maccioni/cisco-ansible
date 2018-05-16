@@ -25,8 +25,7 @@
 
 - name: reset all configurations applied using the playbooks in this repo
   hosts: ios-xe
-  connection: local
-  gather_facts: no
+  gather_facts: True
 
   tasks:
     - name: delete banner

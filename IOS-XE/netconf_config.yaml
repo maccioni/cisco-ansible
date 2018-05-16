@@ -25,7 +25,9 @@
 
 - name: test Ansible netconf_config module on Cisco IOS XE 
   hosts: ios-xe
-  connection: local
+  vars:
+      ansible_connection: netconf
+      ansible_network_os: default
   gather_facts: no
 
   tasks:

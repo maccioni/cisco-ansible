@@ -27,7 +27,6 @@
 
 - name: test Ansible ios_command on Cisco IOS XE 
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   vars_files:

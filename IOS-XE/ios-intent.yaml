@@ -25,7 +25,6 @@
 
 - name: test Ansible Declarative intent IOS XE
   hosts: ios-xe
-  connection: local
   gather_facts: True
 
   tasks:
@@ -33,7 +32,8 @@
 
     - name: Check Management port is up and forwarding traffic
       ios_interface:
-        name: GigabitEthernet1/0/45
+        # mgnt_int is defined in group_vars
+        name: "{{ mgnt_int }}"
         state: up
         tx_rate: ge(0)
         rx_rate: ge(0)

@@ -27,8 +27,12 @@
 #
 # NOTE: connection netconf has been introduced in Ansible 2.5
 
+
 - name: test Ansible connection netconf on Cisco IOS XE 
-  hosts: ios-xe
+  hosts: ios-xe !cat4500-X
+  vars:
+      ansible_connection: netconf
+      ansible_network_os: default
   gather_facts: no
 
   tasks:  

@@ -25,7 +25,6 @@
 
 - name: test Ansible with IOS XE vrfs
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   tasks:

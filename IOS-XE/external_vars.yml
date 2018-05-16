@@ -1,6 +1,0 @@
----
-int_list:
- - GigabitEthernet1/0/1
- - GigabitEthernet1/0/2
- - GigabitEthernet1/0/3
- - GigabitEthernet1/0/4

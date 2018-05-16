@@ -25,7 +25,6 @@
 
 - name: test Ansible Jinjia2 templates on Cisco IOS XE
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   vars:

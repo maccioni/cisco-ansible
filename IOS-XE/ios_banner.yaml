@@ -25,7 +25,6 @@
 
 - name: test Ansible ios_banner module on Cisco IOS XE
   hosts: ios-xe
-  connection: local
   gather_facts: no
 
   tasks:
