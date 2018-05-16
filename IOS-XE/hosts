@@ -15,22 +15,20 @@ ansible_connection=network_cli
 ansible_connection=network_cli
 ansible_become=yes
 ansible_become_method=enable
-#ansible_become_pass=cisco
 
 [cat3k]
-#172.26.249.169
 #cat3k-fabri-160.cisco.com
 #cat3k-fabri-161.cisco.com
 
 [cat4500-X]
-10.200.98.82 
+10.24.98.82 
 
 [cat9k]
-172.26.249.151
-172.26.249.152
-#172.26.249.153
-#172.26.249.155
-#172.26.249.159
+10.24.249.151
+10.24.249.152
+#10.24.249.153
+#10.24.249.155
+#10.24.249.159
 
 [ios-xe:children]
 cat3k
@@ -46,6 +44,6 @@ ios-xe
 nxos
 
 [servers]
-172.26.249.191
-172.26.249.192
-172.26.249.193
+10.24.249.191
+10.24.249.192
+10.24.249.193
