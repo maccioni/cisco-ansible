@@ -1,0 +1,7 @@
+mgnt_int: TenGigabitEthernet1/1
+desc_int: TenGigabitEthernet1/1
+int_list:
+  - TenGigabitEthernet1/1
+  - TenGigabitEthernet1/2
+  - TenGigabitEthernet1/3
+  - TenGigabitEthernet1/4
