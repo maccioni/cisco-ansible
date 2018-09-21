@@ -24,7 +24,7 @@
 ##
 
 - name: test Ansible ios_banner module on Cisco IOS XE
-  hosts: ios-xe
+  hosts: ios-xe !cat4500-X
   gather_facts: no
 
   tasks:
@@ -37,7 +37,7 @@
                  ||        ||
                  ||        ||             Cisco Systems, Inc.
                 ||||      ||||            TME Lab
-            ..:||||||:..:||||||:..        SJ15/1/157
+            ..:||||||:..:||||||:..        SJC23/1/163
 
                                       NOTICE TO USERS
 

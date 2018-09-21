@@ -3,19 +3,21 @@
 # all.yaml
 # Play a series of playbooks from local directory.
 #
-#- import_playbook: ios_reset.yaml 
-- import_playbook: ios_vlan.yaml
 - import_playbook: config_build.yaml
-- import_playbook: ios_facts.yaml 
+- import_playbook: grpc_dial_out_cli.yaml
+- import_playbook: grpc_dial_out_netconf.yaml
+- import_playbook: ios-intent.yaml
+- import_playbook: ios_banner.yaml
+- import_playbook: ios_command.yaml
+- import_playbook: ios_config.yaml
+- import_playbook: ios_running_config.yaml
+- import_playbook: ios_system.yaml
+- import_playbook: ios_vlan.yaml
 - import_playbook: ios_vrf.yaml
 - import_playbook: netconf-connection.yaml
-- import_playbook: ios_banner.yaml
-- import_playbook: ios_running_config.yaml
-- import_playbook: ios_command.yaml
-- import_playbook: playbook-example.yaml
-- import_playbook: ios_config.yaml
-- import_playbook: ios_system.yaml
-  #- import_playbook: ios-intent.yaml
-  #- import_playbook: netconf_config.yaml
-  #- import_playbook: ios_ssh.yaml
-  #- import_playbook: ios_factory_default.yaml
+- import_playbook: netconf_config.yaml
+- import_playbook: servers.yaml
+- import_playbook: variables.yaml
+- import_playbook: grpc_dial_out_reset.yaml
+- import_playbook: ios_reset.yaml
+

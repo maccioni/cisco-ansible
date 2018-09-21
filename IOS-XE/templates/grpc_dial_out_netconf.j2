@@ -1,0 +1,34 @@
+##
+## Build NETCONF operation to configure gRPC dial-out subscriptions
+##
+## Subscriptions are defined in group_vars/grpc.yaml
+##
+## Variables list:
+##  encoding          Configure encoding for subscription
+##  receiver_ip       Configure receiver IP address for notification
+##  receiver_port     Configure receiver port number
+##  receiver_protocol Configure receiver protocol
+##  source-vrf        Configure source VRF
+##  stream            Configure stream for subscription
+##  subscription      List of subscriptions, including ID, xpath filter, period
+
+<config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+<mdt-config-data xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-mdt-cfg">
+{% for subscription in subscriptions %}
+   <mdt-subscription>
+    <subscription-id>{{ subscription.id }}</subscription-id>
+    <base>
+     <stream>{{ stream }}</stream>
+     <encoding>{{ encoding }}</encoding>
+     <period>{{ subscription.period }}</period>
+     <xpath>{{ subscription.xpath }}</xpath>
+    </base>
+    <mdt-receivers>
+     <address>{{ receiver_ip }}</address>
+     <port>{{ receiver_port }}</port>
+     <protocol>{{ receiver_protocol }}</protocol>
+    </mdt-receivers>
+   </mdt-subscription>
+{% endfor %}
+  </mdt-config-data>
+ </config>

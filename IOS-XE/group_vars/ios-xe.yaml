@@ -1,4 +1,3 @@
-mgnt_int: GigabitEthernet0/0
 desc_int: GigabitEthernet1/0/1
 int_list:
   - GigabitEthernet1/0/1

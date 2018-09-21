@@ -22,16 +22,23 @@
 ## This software is for demonstration purposes only and is not supported
 ## by Cisco systems.
 ##
+## This Playbook allows to build a NETCONF operation to setup gRPC dial-out
+## subscriptions in a Cisco device running IOS XE version 16.10.1 or later.
+##
+## Subscriptions are defined in group_vars/grpc.yaml and the NETCONF xml
+## payload is built using a Jinja2 template defined in
+## templates/grpc_dial_out_netconf.j2
+##
 
-- name: test Ansible Jinjia2 templates on Cisco IOS XE
-  hosts: cat9k
+- name: Configure gRPC dial-out subscriptions by NETCONF using Jinja2 templates
+  hosts: grpc
   gather_facts: no
 
-  vars:
-    if_list:
-    - GigabitEthernet1/0/1
-    - GigabitEthernet1/0/2
-    - GigabitEthernet1/0/3
-
   tasks:
-      - template: src=templates/ios-xe.j2 dest=configs/{{ inventory_hostname }}.cfg
+    - template:
+        src=templates/grpc_dial_out_netconf.j2
+        dest=configs/grpc_dial_out_netconf-{{ inventory_hostname }}.xml
+
+    - name: Configure periodic subscriptons
+      netconf_config:
+        xml: "{{ lookup('file', 'configs/grpc_dial_out_netconf-{{ inventory_hostname }}.xml') }}"

@@ -22,16 +22,22 @@
 ## This software is for demonstration purposes only and is not supported
 ## by Cisco systems.
 ##
+# run the playbook with the -v option to see the collected facts:
+#    ansible-playbook -v netconf-connection.yaml -u cisco -k
+#
+# NOTE: connection netconf has been introduced in Ansible 2.5
 
-- name: test Ansible Jinjia2 templates on Cisco IOS XE
-  hosts: cat9k
+
+- name: netconf_rpc 
+  hosts: ios-xe !cat4500-X
+  vars:
+      ansible_connection: netconf
+      ansible_network_os: default
   gather_facts: no
 
-  vars:
-    if_list:
-    - GigabitEthernet1/0/1
-    - GigabitEthernet1/0/2
-    - GigabitEthernet1/0/3
 
-  tasks:
-      - template: src=templates/ios-xe.j2 dest=configs/{{ inventory_hostname }}.cfg
+  tasks:  
+  - name: get schema using the netconf_rpc module
+    netconf_rpc:
+      rpc: get-schema
+      xmlns: urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring

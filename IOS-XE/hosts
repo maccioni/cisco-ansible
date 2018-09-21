@@ -4,6 +4,9 @@
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
 
+#
+# group variables
+#
 [all:vars]
 ansible_python_interpreter=python
 
@@ -16,34 +19,44 @@ ansible_connection=network_cli
 ansible_become=yes
 ansible_become_method=enable
 
-[cat3k]
-#cat3k-fabri-160.cisco.com
-#cat3k-fabri-161.cisco.com
+[grpc:vars]
+ansible_network_os=ios
+ansible_connection=netconf
 
-[cat4500-X]
-10.24.98.82 
-
-[cat9k]
-10.24.249.151
-10.24.249.152
-#10.24.249.153
-#10.24.249.155
-#10.24.249.159
-
-[ios-xe:children]
-cat3k
-cat9k
-cat4500-X
-
-[nxos]
-n9k1-fabri
-n9k2-fabri
+#
+# group definitions
+#
 
 [switches:children]
 ios-xe
 nxos
 
+[ios-xe:children]
+cat3k
+cat4500-X
+cat9k
+
+[cat3k]
+cat3k-fabri-45.cisco.com
+10.195.183.[47:49]
+
+[cat4500-X]
+#10.24.98.82
+
+[cat9k]
+10.195.183.[37:41]
+
+[grpc]
+10.195.183.38
+#10.195.183.39
+10.195.183.41
+
+[test]
+10.195.183.40
+
+[nxos]
+n9k1-fabri
+n9k2-fabri
+
 [servers]
-10.24.249.191
-10.24.249.192
-10.24.249.193
+10.195.183.13[1:5]

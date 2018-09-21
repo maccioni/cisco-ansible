@@ -1,0 +1,74 @@
+##
+## Build NETCONF operation to configure gRPC dial-out subscriptions
+##
+## Subscriptions are defined in group_vars/grpc.yaml
+##
+## Variables list:
+##  encoding          Configure encoding for subscription
+##  receiver_ip       Configure receiver IP address for notification
+##  receiver_port     Configure receiver port number
+##  receiver_protocol Configure receiver protocol
+##  source-vrf        Configure source VRF
+##  stream            Configure stream for subscription
+##  subscription      List of subscriptions, including ID, xpath filter, period
+
+<config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+<mdt-config-data xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-mdt-cfg">
+   <mdt-subscription>
+    <subscription-id>301</subscription-id>
+    <base>
+     <stream>yang-push</stream>
+     <encoding>encode-kvgpb</encoding>
+     <period>6000</period>
+     <xpath>/memory-ios-xe-oper:memory-statistics/memory-statistic</xpath>
+    </base>
+    <mdt-receivers>
+     <address>10.195.183.134</address>
+     <port>57500</port>
+     <protocol>grpc-tcp</protocol>
+    </mdt-receivers>
+   </mdt-subscription>
+   <mdt-subscription>
+    <subscription-id>302</subscription-id>
+    <base>
+     <stream>yang-push</stream>
+     <encoding>encode-kvgpb</encoding>
+     <period>500</period>
+     <xpath>/process-cpu-ios-xe-oper:cpu-usage/cpu-utilization/five-seconds</xpath>
+    </base>
+    <mdt-receivers>
+     <address>10.195.183.134</address>
+     <port>57500</port>
+     <protocol>grpc-tcp</protocol>
+    </mdt-receivers>
+   </mdt-subscription>
+   <mdt-subscription>
+    <subscription-id>303</subscription-id>
+    <base>
+     <stream>yang-push</stream>
+     <encoding>encode-kvgpb</encoding>
+     <period>500</period>
+     <xpath>/interfaces-ios-xe-oper:interfaces/interface/statistics/rx-pps</xpath>
+    </base>
+    <mdt-receivers>
+     <address>10.195.183.134</address>
+     <port>57500</port>
+     <protocol>grpc-tcp</protocol>
+    </mdt-receivers>
+   </mdt-subscription>
+   <mdt-subscription>
+    <subscription-id>304</subscription-id>
+    <base>
+     <stream>yang-push</stream>
+     <encoding>encode-kvgpb</encoding>
+     <period>500</period>
+     <xpath>/interfaces-ios-xe-oper:interfaces/interface/statistics/tx-pps</xpath>
+    </base>
+    <mdt-receivers>
+     <address>10.195.183.134</address>
+     <port>57500</port>
+     <protocol>grpc-tcp</protocol>
+    </mdt-receivers>
+   </mdt-subscription>
+  </mdt-config-data>
+ </config>

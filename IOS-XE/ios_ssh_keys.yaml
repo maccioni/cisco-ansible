@@ -34,12 +34,17 @@
     - name: adding SSH keys for user admin
       ios_config:
         lines:
-            - ip ssh pubkey-chain 
-            - username admin
-            - key-string
-              # copy the entire public key as appears in the id_rsa.pub
-              # including the ssh-rsa and username@hostname
-              # Note: IOS accepts maximum 254 characters per line.
-              # Paste the public key in multiple lines.     
-            - exit
-            - exit
+            - hostname pippo
+            #- ip ssh pubkey-chain 
+              #            - username admin
+              #- key-string
+              #- "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxTEqSVHvvMNJg0VLVG8AI0auiXqvLjVhpU3gn4+Ey"
+              #- riD9pVomG44ehS4kxwgk5CfpIZ18VUGehJc5uPF3p0AERT0PP1vP2WuoeqWdpzHiXn159A6+dWy18Vd/
+              #- TmyBa+BTdjV8FBycxVhKhbplx2GdoD+Tbk4z3tWb39xhO4P5IMfIHy3wQ/W3tBuOIrU+GyHmYZV0iGG7
+              #- DiBl3tBPNe5eFRZcMxTxTdxIvdMfLhMrrXAOooH7ijIrdGrED76d0c+50TI0wSEtxFfmsHVgi4uWfYbx
+              #- 9GsQx5hH6CKWxPqsZcym4T+98wP0AR+W/6JHOecJqKQnuIEbuRiGC1TKiRy3 fabrimac@FABRIMAC-M-61AN
+              #- exit
+              #- exit
+              #- exit
+              #- exit
+              #- end

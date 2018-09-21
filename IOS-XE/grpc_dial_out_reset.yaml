@@ -23,15 +23,17 @@
 ## by Cisco systems.
 ##
 
-- name: test Ansible Jinjia2 templates on Cisco IOS XE
-  hosts: cat9k
-  gather_facts: no
-
-  vars:
-    if_list:
-    - GigabitEthernet1/0/1
-    - GigabitEthernet1/0/2
-    - GigabitEthernet1/0/3
+- name: reset all subscriptions configured by Ansible
+  hosts: grpc
+  gather_facts: False
 
   tasks:
-      - template: src=templates/ios-xe.j2 dest=configs/{{ inventory_hostname }}.cfg
+    - name: delete periodic subscriptions
+      ios_config:
+        lines:
+            - no telemetry ietf subscription 300
+            - no telemetry ietf subscription 301
+            - no telemetry ietf subscription 302
+            - no telemetry ietf subscription 303
+            - no telemetry ietf subscription 304
+            - no telemetry ietf subscription 333

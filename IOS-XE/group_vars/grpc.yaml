@@ -1,0 +1,17 @@
+#
+# gRPC dial-out variables common to all subscritions
+#
+encoding: encode-kvgpb
+receiver_ip: 10.195.183.134
+receiver_port: 57500
+receiver_protocol: grpc-tcp
+source_vrf: Mgmt-vrf
+stream: yang-push
+
+#
+# gRPC dial-out list of subscriptions, including id, period and xpath filter
+#
+subscriptions: [ {"id": "301", "period": "6000", "xpath": "/memory-ios-xe-oper:memory-statistics/memory-statistic"},
+                 {"id": "302", "period": "500", "xpath": "/process-cpu-ios-xe-oper:cpu-usage/cpu-utilization/five-seconds"},
+                 {"id": "303", "period": "500", "xpath": "/interfaces-ios-xe-oper:interfaces/interface/statistics/rx-pps"},
+                 {"id": "304", "period": "500", "xpath": "/interfaces-ios-xe-oper:interfaces/interface/statistics/tx-pps"} ]

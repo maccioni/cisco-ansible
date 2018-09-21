@@ -1,0 +1,68 @@
+---
+
+
+- name: test Ansible connection netconf on Cisco IOS XE 
+  hosts: grpc
+  vars:
+    ansible_connection: netconf
+    ansible_network_os: default
+  gather_facts: no
+#  debugger: on_failed
+
+  tasks:  
+
+  - name: lock candidate
+    netconf_rpc:
+      rpc: lock
+      content:
+        target:
+          candidate:
+
+  - name: unlock candidate
+    netconf_rpc:
+      rpc: unlock
+      xmlns: "urn:ietf:params:xml:ns:netconf:base:1.0"
+      content: "{'target': {'candidate': None}}"
+
+  - name: discard changes
+    netconf_rpc:
+      rpc: discard-changes
+
+  - name: get-schema
+    netconf_rpc:
+      rpc: get-schema
+      xmlns: urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring
+      content:
+        identifier: ietf-netconf
+        version: "2011-06-01"
+  
+# Task is failing. Debug later.
+#  - name: copy candidate to startup
+    #netconf_rpc:
+      #rpc: copy-config
+      #content:
+        #source:
+          #candidate:
+        #target:
+          #running:
+    #tags: skip
+
+  - name: get schema list with JSON output
+    netconf_rpc:
+      rpc: get
+      content: |
+        <filter>
+          <netconf-state xmlns="urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring">
+            <schemas/>
+          </netconf-state>
+        </filter>
+      display: json
+  
+  - name: get schema using XML request
+    netconf_rpc:
+      rpc: "get-schema"
+      xmlns: "urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring"
+      content: |
+        <identifier>ietf-netconf-monitoring</identifier>
+        <version>2010-10-04</version>
+      display: json

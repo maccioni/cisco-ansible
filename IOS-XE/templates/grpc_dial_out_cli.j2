@@ -1,0 +1,26 @@
+##
+## Build CLI based configuration to setup gRPC dial-out subscriptions
+##
+## Subscriptions are defined in group_vars/grpc.yaml
+##
+## Variables list:
+##  encoding          Configure encoding for subscription
+##  receiver_ip       Configure receiver IP address for notification
+##  receiver_port     Configure receiver port number
+##  receiver_protocol Configure receiver protocol
+##  source-vrf        Configure source VRF
+##  stream            Configure stream for subscription
+##  subscription      List of subscriptions, including ID, xpath filter, period
+
+{% for subscription in subscriptions %}
+
+telemetry ietf subscription {{ subscription.id }}
+ encoding {{ encoding }}
+ filter xpath {{ subscription.xpath }}
+ source-address {{ mngt_ip }}
+ source-vrf {{ source_vrf }}
+ stream {{ stream }}
+ update-policy periodic {{ subscription.period }}
+ receiver ip address {{ receiver_ip }} {{ receiver_port }} protocol {{ receiver_protocol }}
+
+{% endfor %}
